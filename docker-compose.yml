@@ -1,0 +1,25 @@
+services:
+  db:
+    image: postgres:16
+    container_name: myapp-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: aton
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  app:
+    container_name: csharp_app
+    build:
+      context: ./aton.api
+    depends_on:
+      - db
+    ports:
+      - "5000:80"
+      - "5001:443"
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=db;Database=aton;Username=admin;Password=password

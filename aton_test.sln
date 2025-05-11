@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aton.api", "aton.api\aton.api.csproj", "{59AFBE76-2523-4E2A-90F9-9AE206B9058E}"
 EndProject
@@ -10,6 +10,18 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aton.domain", "aton.domain\aton.domain.csproj", "{746882A1-E1D2-4CC2-B175-1EA360CDD45F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aton.infrastructure", "aton.infrastructure\aton.infrastructure.csproj", "{CC7AD183-4630-45CA-B3B4-6E907BC8B627}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7205D37F-6ABF-4CB2-ADC5-DD0B36F5411D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7D541D31-49D8-4EA9-B08F-7B2DF92634EC}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{EAE6528F-C848-4C88-BABE-7675687067F7}"
+	ProjectSection(SolutionItems) = preProject
+		init.sql = init.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +45,10 @@ Global
 		{CC7AD183-4630-45CA-B3B4-6E907BC8B627}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC7AD183-4630-45CA-B3B4-6E907BC8B627}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC7AD183-4630-45CA-B3B4-6E907BC8B627}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7205D37F-6ABF-4CB2-ADC5-DD0B36F5411D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7205D37F-6ABF-4CB2-ADC5-DD0B36F5411D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7205D37F-6ABF-4CB2-ADC5-DD0B36F5411D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7205D37F-6ABF-4CB2-ADC5-DD0B36F5411D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
