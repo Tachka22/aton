@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+services:
+  app:
+    build:
+      context: "/home/vladislav/RiderProjects/aton/aton.api"
+      dockerfile: "Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net9.0/aton.api.dll"
+    environment:
+      ASPNETCORE_ENVIRONMENT: "Development"
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "aton.api:dev"
+    ports: []
+    volumes:
+    - "/home/vladislav/RiderProjects/aton/aton.api:/app:rw"
+    - "/home/vladislav/RiderProjects/aton:/src:rw"
+    - "/home/vladislav/.nuget/packages:/home/app/.nuget/packages"
+    working_dir: "/app"

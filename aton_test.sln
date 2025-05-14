@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aton.domain", "aton.domain\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "aton.infrastructure", "aton.infrastructure\aton.infrastructure.csproj", "{CC7AD183-4630-45CA-B3B4-6E907BC8B627}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{7205D37F-6ABF-4CB2-ADC5-DD0B36F5411D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7D541D31-49D8-4EA9-B08F-7B2DF92634EC}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -45,10 +43,6 @@ Global
 		{CC7AD183-4630-45CA-B3B4-6E907BC8B627}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC7AD183-4630-45CA-B3B4-6E907BC8B627}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC7AD183-4630-45CA-B3B4-6E907BC8B627}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7205D37F-6ABF-4CB2-ADC5-DD0B36F5411D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7205D37F-6ABF-4CB2-ADC5-DD0B36F5411D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7205D37F-6ABF-4CB2-ADC5-DD0B36F5411D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7205D37F-6ABF-4CB2-ADC5-DD0B36F5411D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

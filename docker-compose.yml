@@ -10,16 +10,16 @@ services:
       - "5432:5432"
     volumes:
       - ./pgdata:/var/lib/postgresql/data
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
 
   app:
     container_name: csharp_app
     build:
-      context: ./aton.api
+      context: .
+      dockerfile: aton.api/Dockerfile
     depends_on:
       - db
     ports:
-      - "5000:80"
-      - "5001:443"
+      - "8080:8080"
+      - "8081:8081"
     environment:
-      - ConnectionStrings__DefaultConnection=Host=db;Database=aton;Username=admin;Password=password
+      - ConnectionStrings__Default=Host=db;Database=aton;Username=admin;Password=password

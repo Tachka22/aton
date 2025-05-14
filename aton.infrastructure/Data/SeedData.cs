@@ -12,7 +12,9 @@ public static class SeedData
     {
         using var scope = serviceProvider.CreateScope();
         var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-
+        
+        await context.Database.MigrateAsync();
+        
         if (!await context.Users.AnyAsync())
         {
             var admin = new User

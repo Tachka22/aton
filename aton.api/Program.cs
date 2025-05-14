@@ -1,6 +1,7 @@
 using aton.api.DI;
 using aton.infrastructure.Data;
 using aton.infrastructure.DI;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +16,7 @@ builder.Services.AddOptions(builder.Configuration);
 
 var app = builder.Build();
 
-await SeedData.SeedDataAsync(app.Services);//Создание админа при условии созданной БД
-
+await SeedData.SeedDataAsync(app.Services);//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ
 app.UseSwagger();
 app.UseSwaggerUI();
 app.UseAuthentication();
