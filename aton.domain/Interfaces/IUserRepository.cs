@@ -11,8 +11,4 @@ public interface IUserRepository
     Task<IEnumerable<User>> GetAllActive();
     Task<User> GetByLogin(string login);
     Task<IEnumerable<User>> GetAllByAge(DateTime minDateTime);
-
-
-    //Update
-    void Update(User user);
 }

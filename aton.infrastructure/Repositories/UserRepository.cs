@@ -32,9 +32,4 @@ internal class UserRepository : IUserRepository
     {
         return await _context.Users.FirstOrDefaultAsync(f => f.Login == login);
     }
-
-    public void Update(User user)
-    {
-        _context.Users.Update(user);
-    }
 }

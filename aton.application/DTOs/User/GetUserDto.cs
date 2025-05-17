@@ -2,8 +2,8 @@
 
 public class GetUserDto
 {
-    public string Name { get; set; }
-    public string Gender { get; set; }
-    public DateTime Birthday { get; set; }
-    public bool IsActive { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Gender { get; set; } = string.Empty;
+    public DateTime Birthday { get; set; } = DateTime.MinValue;
+    public bool IsActive { get; set; } = false;
 }

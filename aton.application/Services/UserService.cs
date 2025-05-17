@@ -23,6 +23,8 @@ internal class UserService : IUserService
     {
         _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
         _option = options ?? throw new ArgumentNullException(nameof(options));
+
+        MapsterConfiguration();
     }
 
     public async Task<GeneralResponce> ChangeLogin(ChangeLoginDto dto, string modifiedBy)
@@ -79,18 +81,20 @@ internal class UserService : IUserService
         }
     }
 
-    public async Task Delete(string targetLogin, string requestLogin)
+    public async Task<GeneralResponce> Delete(string targetLogin, string requestLogin)
     {
         try
         {
             var user = await _unitOfWork.UserRepository.GetByLogin(targetLogin);
             if (user == null)
-                throw new Exception("Пользователь не найден.");
+                return new GeneralResponce(false, $"Пользователь {targetLogin} не найден.");
 
             user.RevokedBy = requestLogin;
             user.RevokedOn = DateTime.UtcNow;
 
             await _unitOfWork.SaveChangesAsync();
+
+            return new GeneralResponce(true, $"Пользователь {targetLogin} успешно удалён.");
         }
         catch (Exception ex)
         {
@@ -98,25 +102,28 @@ internal class UserService : IUserService
         }
     }
 
-    public async Task<IEnumerable<string>> GetAllActive()
+    public async Task<IEnumerable<GetUserDto>> GetAllActive()
     {
         var users = await _unitOfWork.UserRepository.GetAllActive();
-        return users.Select(x => x.Login);
+        return users.Select(x => x.Adapt<GetUserDto>()).ToList();
     }
 
-    public async Task<IEnumerable<string>> GetAllWithAgeFilter(DateTime minDateTime)
+    public async Task<IEnumerable<GetUserDto>> GetAllWithAgeFilter(DateTime minDateTime)
     {
         var users =  await _unitOfWork.UserRepository.GetAllByAge(minDateTime);
-        return users.Select(x => x.Login);
+        return users.Select(x => x.Adapt<GetUserDto>()).ToList();
     }
-
     public async Task<GetUserDto?> GetByLogin(string login)
     {
         var user = await _unitOfWork.UserRepository.GetByLogin(login);
-        if(user != null)
-            return user.Adapt<GetUserDto>();
+        if (user == null)
+            return null;
 
-        return null;
+        var dto = user.Adapt<GetUserDto>();
+        if (IsActiveUser(user))
+            dto.IsActive = true;
+
+        return dto;
     }
 
     public async Task<LoginResponce> Login(LoginDto dto)
@@ -136,18 +143,20 @@ internal class UserService : IUserService
         return new LoginResponce(true, string.Empty, token);
     }
 
-    public async Task Recovery(string login)
+    public async Task<GeneralResponce> Recovery(string login)
     {
         try
         {
             var user = await _unitOfWork.UserRepository.GetByLogin(login);
             if (user == null)
-                throw new Exception($"Пользователь {login} не найден");
+                return new GeneralResponce(false, $"Пользователь {login} не найден.");
 
             user.RevokedOn = null;
             user.RevokedBy = string.Empty;
 
             await _unitOfWork.SaveChangesAsync();
+
+            return new GeneralResponce(true, $"Пользователь {login} восстановлен.");
         }
         catch(Exception ex)
         {
@@ -188,16 +197,23 @@ internal class UserService : IUserService
         }
     }
 
-    public async Task Update(UpdateUserDto dto, string modifiedBy)
+    public async Task<GeneralResponce> Update(UpdateUserDto dto, string modifiedBy)
     {
         try
         {
-            var user = dto.Adapt<User>();
-            user.ModifiedBy = modifiedBy;
-            user.ModifiedOn = DateTime.UtcNow;
+            var ext = await _unitOfWork.UserRepository.GetByLogin(dto.Login);
+            if (ext == null)
+                return new GeneralResponce(true, $"Пользователь {ext.Login} не найден");
 
-            _unitOfWork.UserRepository.Update(user);
+            ext.Gender = dto.Gender;
+            ext.Name = dto.Name;
+            ext.Birthday = dto.Birthday;
+            ext.ModifiedBy = modifiedBy;
+            ext.ModifiedOn = DateTime.UtcNow;
+
             await _unitOfWork.SaveChangesAsync();
+
+            return new GeneralResponce(true, $"Пользователь {ext.Login} успешно обновлён");
         }
         catch (Exception ex)
         {
@@ -238,5 +254,12 @@ internal class UserService : IUserService
         return true;
     }
 
-    private bool IsActiveUser(User user) => user.RevokedOn == null; 
+    private bool IsActiveUser(User user) => user.RevokedOn == null;
+
+    private static void MapsterConfiguration()
+    {
+        TypeAdapterConfig<User, GetUserDto>
+            .NewConfig()
+            .Map(dest => dest.IsActive, src => src.RevokedOn == null);
+    }
 }

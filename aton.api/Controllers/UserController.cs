@@ -125,9 +125,11 @@ public class UserController : BaseController
     {
         try
         {
-            await _service.Update(dto, GetRequestUserLogin());
+            var res = await _service.Update(dto, GetRequestUserLogin());
+            if (!res.Flag)
+                return BadRequest(res.Message);
 
-            return Ok("Пользователь успешно обновлён.");
+            return Ok(res.Message);
         }
         catch (Exception ex)
         {
@@ -145,7 +147,7 @@ public class UserController : BaseController
         {
             var res = await _service.GetByLogin(login);
             if(res == null)
-                return NotFound($"Пользователь с логином {login} не найден.");
+                return BadRequest($"Пользователь с логином {login} не найден.");
 
             return Ok(res);
         }
@@ -183,7 +185,9 @@ public class UserController : BaseController
     {
         try
         {
-            await _service.Delete(login, GetRequestUserLogin());
+            var res = await _service.Delete(login, GetRequestUserLogin());
+            if(!res.Flag)
+                return BadRequest(res.Message);
 
             return Ok();
         }
@@ -201,9 +205,11 @@ public class UserController : BaseController
     {
         try
         {
-            await _service.Recovery(login);
+            var res = await _service.Recovery(login);
+            if(!res.Flag)
+                return BadRequest(res.Message);
 
-            return Ok();
+            return Ok(res.Message);
         }
         catch (Exception ex)
         {
