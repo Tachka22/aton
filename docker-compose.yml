@@ -13,6 +13,7 @@ services:
 
   app:
     container_name: csharp_app
+    restart: always
     build:
       context: .
       dockerfile: aton.api/Dockerfile
