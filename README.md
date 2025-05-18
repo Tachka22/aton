@@ -7,14 +7,14 @@
 ## Инструкция по запуску
 ### Запуск с использованием Docker
 1. Клонировать репозиторий
-2. Выполнить команду docker-compose up
+2. Выполнить команду docker compose up
 3. Перейти по http://localhost:5000/swagger/index.html
 
 ### Нативно
 1. Клонировать репозиторий
 2. Подключиться к БД PostgreSQL в файле appsetting.json
 3. Запустить приложение
-4. Перейти по http://localhost:5000/swagger/index.html
+4. Перейти по http://localhost:5248/swagger/index.html
 
 ## Доступы
 
